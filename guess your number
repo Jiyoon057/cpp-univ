@@ -1,0 +1,24 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+	int m_number, num, l_number;
+
+	cout << " 휴대폰 번호의 중간 (010 다음) 4자리를 입력해 주세요" << endl;
+	cin >> m_number;
+	cout <<  m_number * 80 << endl;
+
+	cout << " 1~10 숫자 중 아무 숫자를 정하세요" << endl;
+	cin >> num;
+	cout << ((m_number * 80) + num ) * 250 << endl;
+
+	cout << "휴대폰 번호 뒷 4자리를 입력해 주세요" << endl;
+	cin >> l_number;
+	cout << (((m_number * 80) + num) * 250) + (2 * l_number) << endl;
+	cout << (((m_number * 80) + num) * 250) + (2 * l_number) - (num * 250) << endl;
+	cout << ((((m_number * 80) + num) * 250) + (2 * l_number) - (num * 250)) / 2 << endl;
+
+	cout << "당신의 전화번호는 " << "010" << ((((m_number * 80) + num) * 250) + (2 * l_number) - (num * 250)) / 2 << "입니다." << endl;
+
+	return 0;
+}
