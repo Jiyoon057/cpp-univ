@@ -1,0 +1,159 @@
+#include <iostream>
+#include <conio.h>  // _getch() 키를 입력받기위함
+#include <stdio.h>  // printf를 사용하기위함
+#include <windows.h>  // gotoxy를 받기위함
+using namespace std;
+
+// 시작 화면 그리기
+int Drawinfogame()
+{
+	system("cls");  // 화면에 나와있는것들을 제거(화면을 깨끗하게 만들어줌)
+	cout << "<폭탄을 피해 탈출하자>" << endl;
+	cout << "      * 규칙 *      " << endl;
+	cout << endl;
+	cout << endl;
+
+	cout << "1. 선물을 얻어 무사히 탈출하세요." << endl;
+	cout << "2. 폭탄(X)를 3회 밟으면 실패입니다." << endl;
+	cout << "3. 시작 위치는 Ｓ, 탈출 위치는 Ｑ입니다." << endl;
+	cout << "4. 방향키 →, ←, ↑, ↓로 방향 전환을 할 수 있습니다." << endl;
+	cout << "5. 폭탄을 피해 무사히 탈출해보세요." << endl;
+	cout << endl;
+	cout << endl;
+	cout << "게임 시작하기(s)" << endl;
+	return 0;
+}
+
+// 게임 화면 그리기
+int DrawStartGame()
+{
+	system("cls");  // 화면에 있는 내용 싹 지우기
+		const int map[9][16] = {             // 9x16 맵 만들기. 1 = 시작점. 9 = 도착 지점
+		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9 },
+		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+		{ 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 }
+		};
+
+		int i, j;
+		for (i = 0; i < 9; i++)
+		{
+			for (j = 0; j < 16; j++)
+			{
+				if (map[i][j] == 0)
+					printf("■");
+
+				else if (map[i][j] == 1)
+					printf("Ｓ");
+
+				else if (map[i][j] == 9)
+					printf("Ｑ");
+			}
+			printf("\n");
+		}
+		cout << "폭탄 밟은 횟수: \n";
+		cout << endl;
+		return 0;
+	}
+
+
+// 게임 오버 그리기
+int DrawGameOver()
+{
+	system("cls");
+	cout << endl;
+	cout << endl;
+	cout << endl;
+	cout << endl;
+	cout << endl;
+	cout << "************************************" << endl;
+	cout << "************************************" << endl;
+	cout << "**            GAME OVER           **" << endl;
+	cout << "************************************" << endl;
+	cout << "************************************" << endl;
+	cout << endl;
+	cout << endl;
+	cout << endl;
+	cout << endl;
+	cout << endl;
+
+	return 0;
+}
+
+// 폭탄 만들기
+
+// 화살표키 입력 받기
+int gotoxy(short x, short y) {
+	COORD pos = { x,y };  // 커서의 위치를 저장
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);  // 커서의 위치를 이동시키는 함수
+	return 0;
+}
+
+int keyboard()
+{
+	int x = 9, y = 0;
+	int c;
+	while (1) {
+		c = _getch();
+		system("cls");
+		if (c == 224) {
+			c = _getch();
+			switch (c) {
+			case 72: y--; break;  //위쪽
+			case 80: y++; break;  //아래쪽
+			case 75: x--; break;  //왼쪽
+			case 77: x++; break;  //오른쪽
+			}
+		}
+		gotoxy(x, y);
+		cout << "◇";
+	}
+	return 0;
+}
+
+// 진행
+// 게임info --> 게임start (화면 전환)
+int main()
+{
+	Drawinfogame();
+	int input = _getch();  // info 화면에서 키 입력
+	if (input == 83 || input == 115)  // info 화면에서 s입력하면
+	{
+		DrawStartGame();  // start 화면으로 전환
+	}
+	
+	while (input != 83 && input != 115)  // 만약 사용자가 s를 입력하지 않으면 s를 입력할때까지 아래 구문 실행
+	{
+		system("cls");  // 화면 정리
+		cout << "<폭탄을 피해 탈출하자>" << endl;
+		cout << "      * 규칙 *      " << endl;
+		cout << endl;
+		cout << endl;
+
+		cout << "1. 선물을 얻어 무사히 탈출하세요." << endl;
+		cout << "2. 폭탄(X)를 3회 밟으면 실패입니다." << endl;
+		cout << "3. 시작 위치는 Ｓ, 탈출 위치는 Ｑ입니다." << endl;
+		cout << "4. 방향키 →, ←, ↑, ↓로 방향 전환을 할 수 있습니다." << endl;
+		cout << "5. 폭탄을 피해 무사히 탈출해보세요." << endl;
+		cout << endl;
+		cout << endl;
+		cout << "게임을 실행하려면 s를 누르세요." << endl;
+		cout << endl;
+
+		int input = _getch();  // 위의 info가 뜨고 키를 다시 입력
+		if (input == 83 || input == 115)  // s를 맞게 입력하면 
+		{
+			DrawStartGame();  // start 화면으로 전환
+			break; // 반복문 빠져 나옴
+		}
+	}
+
+	return 0;
+}
+
+// 게임start 화면에서
